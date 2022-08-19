@@ -53,22 +53,24 @@ function setGame() {
 
   tiles = createImageTiles();
 
-  // 1. 처음엔 기본 사진 퍼즐을 보여주다가
-  tiles.forEach((tile) => container.appendChild(tile));
+  if (isPlaying) {
+    // 1. 처음엔 기본 사진 퍼즐을 보여주다가
+    tiles.forEach((tile) => container.appendChild(tile));
 
-  // 2. 2초 뒤에 랜덤으로 섞인 사진 퍼즐을 보여줌
-  // shuffle 함수로 사진 타일을 섞고 forEach로 돌려서
-  // 돌아가면서 나오는 각각의 타일 요소 16개를 ul태그에 appendChild 함수로
-  // 하나하나씩 붙여서 랜덤으로 뒤섞인 큰 사진 1개를 만들어줌.
-  setTimeout(() => {
-    container.innerHTML = "";
-    shuffle(tiles).forEach((tile) => container.appendChild(tile));
+    // 2. 2초 뒤에 랜덤으로 섞인 사진 퍼즐을 보여줌
+    // shuffle 함수로 사진 타일을 섞고 forEach로 돌려서
+    // 돌아가면서 나오는 각각의 타일 요소 16개를 ul태그에 appendChild 함수로
+    // 하나하나씩 붙여서 랜덤으로 뒤섞인 큰 사진 1개를 만들어줌.
+    setTimeout(() => {
+      container.innerHTML = "";
+      shuffle(tiles).forEach((tile) => container.appendChild(tile));
 
-    timeInterval = setInterval(() => {
-      playTime.innerText = time;
-      time++;
-    }, 1000);
-  }, 5000);
+      timeInterval = setInterval(() => {
+        playTime.innerText = time;
+        time++;
+      }, 1000);
+    }, 5000);
+  }
 }
 
 // 사진 타일 16개를 만들어주는 함수
@@ -156,6 +158,7 @@ container.addEventListener("drop", (e) => {
 });
 
 startButton.addEventListener("click", () => {
+  startButton.style.display = "none";
   setGame();
 });
 /* 이벤트 끝 */
